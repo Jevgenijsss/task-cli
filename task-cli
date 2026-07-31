@@ -1,0 +1,63 @@
+#!/usr/bin/env php
+<?php
+    //User input
+    $command = $argv[1] ?? null;
+
+    switch ($command) {
+        case 'add':
+            $description = $argv[2] ?? '';
+            $newTask = new Task($description);
+            //Read existing tasks
+            $tasks = [];
+
+            if (file_exists("tasks.json")) {
+                $json = file_get_contents("tasks.json");
+                $tasks = json_decode($json, true) ?? [];
+            }
+            //Update Id
+            $newTask->id = count($tasks) + 1;
+
+            //Add new tasks
+            $tasks[] = $newTask;
+
+            //Save tasks
+
+
+            file_put_contents("tasks.json", json_encode($tasks, JSON_PRETTY_PRINT));
+            echo "Add: $description\n";
+            break;
+
+        case 'update':
+            $id = $argv[2] ?? null;
+            $description = $argv[3] ?? '';
+            echo "Update #$id: $description\n";
+            break;
+
+        case 'delete':
+            $id = $argv[2] ?? null;
+            echo "Delete #$id\n";
+            break;
+
+        case 'list':
+            $status = $argv[2] ?? null;
+            echo $status ? "List $status\n" : "List all\n";
+            break;
+
+        default:
+            echo "Unknown command\n";
+    }
+
+    class Task {
+        public $id;
+        public $description;
+        public $status;
+        public $createdAt;
+        public $updatedAt;
+
+        function __construct ($description) {
+            $this->id = 1;
+            $this->description = $description;
+            $this->status = "in progress";
+            $this->createdAt = date("Y-m-d H:i:s");
+        }
+    }
