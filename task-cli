@@ -59,5 +59,6 @@
             $this->description = $description;
             $this->status = "in progress";
             $this->createdAt = date("Y-m-d H:i:s");
+            $this->updatedAt = date("Y-m-d H:i:s");
         }
     }
