@@ -14,15 +14,11 @@
                 $json = file_get_contents("tasks.json");
                 $tasks = json_decode($json, true) ?? [];
             }
-            //Update Id
-            $newTask->id = count($tasks) + 1;
 
             //Add new tasks
             $tasks[] = $newTask;
 
             //Save tasks
-
-
             file_put_contents("tasks.json", json_encode($tasks, JSON_PRETTY_PRINT));
             echo "Add: $description\n";
             break;
@@ -35,18 +31,28 @@
                 $tasks = json_decode($json, true) ?? [];    
             }
             //Update task description
-            $id = $argv[2] ?? null;
+            $index = $argv[2] ?? null;
             $description = $argv[3] ?? '';
             //Update task updatedAt
-            $tasks[$id - 1]["description"] = $description;
-            $tasks[$id - 1]["updatedAt"] = date("Y-m-d H:i:s");
+            $tasks[$index - 1]["description"] = $description;
+            $tasks[$index- 1]["updatedAt"] = date("Y-m-d H:i:s");
             //Save tasks
             file_put_contents("tasks.json", json_encode($tasks, JSON_PRETTY_PRINT));
             break;
 
         case 'delete':
-            $id = $argv[2] ?? null;
-            echo "Delete #$id\n";
+            //Read tasks
+            $tasks = [];
+            if (file_exists("tasks.json")) {
+                $json = file_get_contents("tasks.json");
+                $tasks = json_decode($json, true) ?? [];
+            }
+
+            $index = $argv[2] ?? null;
+            //Delete task
+            array_splice($tasks, $index - 1, 1);
+            //Save tasks
+            file_put_contents("tasks.json", json_encode($tasks, JSON_PRETTY_PRINT));
             break;
 
         case 'list':
@@ -66,7 +72,7 @@
         public $updatedAt;
 
         function __construct ($description) {
-            $this->id = 1;
+            $this->id = uniqid();
             $this->description = $description;
             $this->status = "in progress";
             $this->createdAt = date("Y-m-d H:i:s");
