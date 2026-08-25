@@ -2,8 +2,15 @@
     {
         "id": "6a7dcd21a9e90",
         "description": "buy groceries",
-        "status": "in progress",
+        "status": "in-progress",
         "createdAt": "2026-08-13 16:56:49",
         "updatedAt": "2026-08-13 17:00:51"
+    },
+    {
+        "id": "6a8d9f4a65a32",
+        "description": "go to school",
+        "status": "in-progress",
+        "createdAt": "2026-08-25 16:57:30",
+        "updatedAt": "2026-08-25 16:57:30"
     }
 ]

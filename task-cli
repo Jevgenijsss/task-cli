@@ -56,8 +56,36 @@
             break;
 
         case 'list':
+            //Read tasks
+            $tasks = [];
+            if (file_exists("tasks.json")) {
+                $json = file_get_contents("tasks.json");
+                $tasks = json_decode($json, true) ?? [];
+            }
+
+            if (count($tasks) == 0) {
+                echo "No tasks found\n";
+            }
+
             $status = $argv[2] ?? null;
-            echo $status ? "List $status\n" : "List all\n";
+
+            if (!$status) {
+            //Loop through ALL tasks
+                foreach  ($tasks as $task) {
+                    echo $task["description"] . "\n";
+                }
+            } else {
+                //Loop by status
+                foreach ($tasks as $task) {
+                    if ($task["status"] === $status) {
+                        echo $task["description"] . "\n";
+                    }
+                }
+            }
+
+
+
+            
             break;
 
         default:
@@ -74,7 +102,7 @@
         function __construct ($description) {
             $this->id = uniqid();
             $this->description = $description;
-            $this->status = "in progress";
+            $this->status = "in-progress";
             $this->createdAt = date("Y-m-d H:i:s");
             $this->updatedAt = date("Y-m-d H:i:s");
         }
