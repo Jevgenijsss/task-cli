@@ -1,4 +1,4 @@
-Clone project\
+Clone project
 Open directory with task-cli in terminal\
 
 # Adding a new task\
