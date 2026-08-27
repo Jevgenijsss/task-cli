@@ -1,5 +1,15 @@
 #!/usr/bin/env php
 <?php
+    //Load tasks helper
+    function loadTasks() {
+        $tasks = [];
+        if (file_exists("tasks.json")) {
+            $json = file_get_contents("tasks.json");
+            $tasks = json_decode($json, true) ?? [];
+        }
+        return $tasks;
+    }
+
     //User input
     $command = $argv[1] ?? null;
 
@@ -8,62 +18,42 @@
             $description = $argv[2] ?? '';
             $newTask = new Task($description);
             //Read existing tasks
-            $tasks = [];
-
-            if (file_exists("tasks.json")) {
-                $json = file_get_contents("tasks.json");
-                $tasks = json_decode($json, true) ?? [];
-            }
-
+            $taskList = loadTasks();
             //Add new tasks
-            $tasks[] = $newTask;
+            $taskList[] = $newTask;
 
             //Save tasks
-            file_put_contents("tasks.json", json_encode($tasks, JSON_PRETTY_PRINT));
+            file_put_contents("tasks.json", json_encode($taskList, JSON_PRETTY_PRINT));
             echo "Add: $description\n";
             break;
 
         case 'update':
             //Read tasks
-            $tasks = [];
-            if (file_exists("tasks.json")) {
-                $json = file_get_contents("tasks.json");
-                $tasks = json_decode($json, true) ?? [];    
-            }
+            $taskList = loadTasks();
             //Update task description
             $index = $argv[2] ?? null;
             $description = $argv[3] ?? '';
             //Update task updatedAt
-            $tasks[$index - 1]["description"] = $description;
-            $tasks[$index- 1]["updatedAt"] = date("Y-m-d H:i:s");
+            $taskList[$index - 1]["description"] = $description;
+            $taskList[$index- 1]["updatedAt"] = date("Y-m-d H:i:s");
             //Save tasks
-            file_put_contents("tasks.json", json_encode($tasks, JSON_PRETTY_PRINT));
+            file_put_contents("tasks.json", json_encode($taskList, JSON_PRETTY_PRINT));
             break;
 
         case 'delete':
             //Read tasks
-            $tasks = [];
-            if (file_exists("tasks.json")) {
-                $json = file_get_contents("tasks.json");
-                $tasks = json_decode($json, true) ?? [];
-            }
-
+            $taskList = loadTasks();
             $index = $argv[2] ?? null;
             //Delete task
-            array_splice($tasks, $index - 1, 1);
+            array_splice($taskList, $index - 1, 1);
             //Save tasks
-            file_put_contents("tasks.json", json_encode($tasks, JSON_PRETTY_PRINT));
+            file_put_contents("tasks.json", json_encode($taskList, JSON_PRETTY_PRINT));
             break;
 
         case 'list':
             //Read tasks
-            $tasks = [];
-            if (file_exists("tasks.json")) {
-                $json = file_get_contents("tasks.json");
-                $tasks = json_decode($json, true) ?? [];
-            }
-
-            if (count($tasks) == 0) {
+            $taskList = loadTasks();
+            if (count($taskList) == 0) {
                 echo "No tasks found\n";
             }
 
@@ -71,21 +61,17 @@
 
             if (!$status) {
             //Loop through ALL tasks
-                foreach  ($tasks as $task) {
+                foreach  ($taskList as $task) {
                     echo $task["description"] . "\n";
                 }
             } else {
                 //Loop by status
-                foreach ($tasks as $task) {
+                foreach ($taskList as $task) {
                     if ($task["status"] === $status) {
                         echo $task["description"] . "\n";
                     }
                 }
             }
-
-
-
-            
             break;
 
         default:
