@@ -14,7 +14,7 @@ Open directory with task-cli in terminal
 ./task-cli mark-done 1
 
 # Listing all tasks
-./task-cli list\
+./task-cli list
 
 # Listing tasks by status
 ./task-cli list done\
