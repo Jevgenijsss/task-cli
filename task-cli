@@ -15,6 +15,13 @@
         file_put_contents("tasks.json", json_encode($taskList, JSON_PRETTY_PRINT));
     }
 
+    //Render tasks helper
+    function renderTasks($key, $task) {
+        echo "Task number: " . ($key + 1) . "\n";
+        echo "Task: {$task['description']}\n";
+        echo "Task status: {$task['status']}\n";
+    }
+
     //User input
     $command = $argv[1] ?? null;
 
@@ -65,14 +72,14 @@
 
             if (!$status) {
             //Loop through ALL tasks
-                foreach  ($taskList as $task) {
-                    echo $task["description"] . "\n";
+                foreach  ($taskList as $key=>$task) {
+                    renderTasks($key, $task);
                 }
             } else {
                 //Loop by status
-                foreach ($taskList as $task) {
+                foreach ($taskList as $key=>$task) {
                     if ($task["status"] === $status) {
-                        echo $task["description"] . "\n";
+                        renderTasks($key, $task);
                     }
                 }
             }
