@@ -28,14 +28,16 @@
     switch ($command) {
         case 'add':
             $description = $argv[2] ?? '';
-            $newTask = new Task($description);
             //Read existing tasks
             $taskList = loadTasks();
             //Add new tasks
+            $taskId = count($taskList) + 1;
+            $newTask = new Task($description, $taskId);
             $taskList[] = $newTask;
             //Save tasks
             saveTasks($taskList);
-            echo "Add: $description\n";
+            
+            echo "Task added successfully (ID: $taskId)\n";
             break;
 
         case 'update':
@@ -113,8 +115,8 @@
         public $createdAt;
         public $updatedAt;
 
-        function __construct ($description) {
-            $this->id = uniqid();
+        function __construct ($description, $id = null) {
+            $this->id = $id ?? 0;
             $this->description = $description;
             $this->status = "todo";
             $this->createdAt = date("Y-m-d H:i:s");

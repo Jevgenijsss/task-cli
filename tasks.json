@@ -1,58 +1,16 @@
 [
     {
-        "id": "6a7dcd21a9e90",
-        "description": "buy groceries",
-        "status": "done",
-        "createdAt": "2026-08-13 16:56:49",
-        "updatedAt": "2026-08-13 17:00:51"
-    },
-    {
-        "id": "6a8d9f4a65a32",
-        "description": "go to school",
-        "status": "in-progress",
-        "createdAt": "2026-08-25 16:57:30",
-        "updatedAt": "2026-08-25 16:57:30"
-    },
-    {
-        "id": "6a8fee8d5ba54",
-        "description": "visit",
-        "status": "done",
-        "createdAt": "2026-08-27 11:00:13",
-        "updatedAt": "2026-08-27 11:00:13"
-    },
-    {
-        "id": "6a8feeae76c1d",
-        "description": "cook",
-        "status": "in-progress",
-        "createdAt": "2026-08-27 11:00:46",
-        "updatedAt": "2026-08-27 11:00:46"
-    },
-    {
-        "id": "6a8fef1e0145a",
-        "description": "cook",
-        "status": "in-progress",
-        "createdAt": "2026-08-27 11:02:38",
-        "updatedAt": "2026-08-27 11:02:38"
-    },
-    {
-        "id": "6a8ff0468be9d",
-        "description": "Cook dinner",
-        "status": "in-progress",
-        "createdAt": "2026-08-27 11:07:34",
-        "updatedAt": "2026-08-27 11:07:34"
-    },
-    {
-        "id": "6a8ff31c36f5d",
+        "id": 1,
         "description": "Cook breakfast",
-        "status": "in-progress",
-        "createdAt": "2026-08-27 11:19:40",
-        "updatedAt": "2026-08-27 11:19:40"
+        "status": "todo",
+        "createdAt": "2026-08-27 12:21:09",
+        "updatedAt": "2026-08-27 12:21:09"
     },
     {
-        "id": "6a8ff37cafafd",
+        "id": 2,
         "description": "Cook breakfast",
-        "status": "in-progress",
-        "createdAt": "2026-08-27 11:21:16",
-        "updatedAt": "2026-08-27 11:21:16"
+        "status": "todo",
+        "createdAt": "2026-08-27 12:23:00",
+        "updatedAt": "2026-08-27 12:23:00"
     }
 ]
