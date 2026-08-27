@@ -10,6 +10,11 @@
         return $tasks;
     }
 
+    //Save tasks helper
+    function saveTasks($taskList) {
+        file_put_contents("tasks.json", json_encode($taskList, JSON_PRETTY_PRINT));
+    }
+
     //User input
     $command = $argv[1] ?? null;
 
@@ -21,9 +26,8 @@
             $taskList = loadTasks();
             //Add new tasks
             $taskList[] = $newTask;
-
             //Save tasks
-            file_put_contents("tasks.json", json_encode($taskList, JSON_PRETTY_PRINT));
+            saveTasks($taskList);
             echo "Add: $description\n";
             break;
 
@@ -37,7 +41,7 @@
             $taskList[$index - 1]["description"] = $description;
             $taskList[$index- 1]["updatedAt"] = date("Y-m-d H:i:s");
             //Save tasks
-            file_put_contents("tasks.json", json_encode($taskList, JSON_PRETTY_PRINT));
+            saveTasks($taskList);
             break;
 
         case 'delete':
@@ -47,7 +51,7 @@
             //Delete task
             array_splice($taskList, $index - 1, 1);
             //Save tasks
-            file_put_contents("tasks.json", json_encode($taskList, JSON_PRETTY_PRINT));
+            saveTasks($taskList);
             break;
 
         case 'list':
