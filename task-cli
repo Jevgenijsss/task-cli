@@ -51,6 +51,23 @@
             saveTasks($taskList);
             break;
 
+        case 'mark-in-progress':
+            //Read tasks
+            $taskList = loadTasks();
+            //Update task status
+            $index = $argv[2] ?? null;
+            $taskList[$index - 1]["status"] = "in-progress";
+            saveTasks($taskList);
+            break;
+        
+        case 'mark-done':
+            //Read tasks
+            $taskList = loadTasks();
+            $index = $argv[2] ?? null;
+            $taskList[$index - 1]["status"] = "done";
+            saveTasks($taskList);
+            break;
+
         case 'delete':
             //Read tasks
             $taskList = loadTasks();
@@ -99,7 +116,7 @@
         function __construct ($description) {
             $this->id = uniqid();
             $this->description = $description;
-            $this->status = "in-progress";
+            $this->status = "todo";
             $this->createdAt = date("Y-m-d H:i:s");
             $this->updatedAt = date("Y-m-d H:i:s");
         }
